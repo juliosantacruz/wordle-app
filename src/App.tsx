@@ -5,17 +5,16 @@ import GuessRow from "@/components/GuessRow";
 
 function App() {
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center bg-[#262B3C]">
+    <div className="flex h-screen w-screen flex-col items-center justify-center bg-[#F9F9F9] dark:bg-[#262B3C]">
       <Header />
-      <div className="flex flex-col items-center">
-
-
-      <GuessRow guess="tests" word="loles" isGuessed={true} />
-      <GuessRow guess="tests" word="loles" isGuessed={true} />
-      <GuessRow guess="tests" word="loles" isGuessed={true} />
-      <GuessRow guess="" word="loles" isGuessed={false} />
-      <Keyboard />
+      <div className="flex flex-col items-center m-[100px]">
+        <GuessRow guess="tests" word="loles" isGuessed={true} />
+        <GuessRow guess="tests" word="loles" isGuessed={true} />
+        <GuessRow guess="tests" word="loles" isGuessed={true} />
+        <GuessRow guess="" word="loles" isGuessed={false} />
+        <GuessRow guess="" word="loles" isGuessed={false} />
       </div>
+        <Keyboard />
     </div>
   );
 }
