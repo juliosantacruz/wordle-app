@@ -1,9 +1,11 @@
 import React from "react";
 import GuessRowSample from "@/components/GuessRowSample";
+import { useGameStore } from "@/store/gameStore";
 
 export default function TheRules() {
+  const {setTheRules} = useGameStore()
   return (
-    <div className="w-[546px] h-[1018px] rounded-xl px-8 pt-6 border border-[#262B3C]  dark:border-[#F3F3F3] ">
+    <div className="w-[546px] h-[1018px] rounded-xl px-8 pt-6 border bg-[#F3F3F3] dark:bg-[#262B3C] border-[#262B3C]  dark:border-[#F3F3F3] ">
       <div className="header text-center text-[35px] font-semibold m-4     dark:text-[white] text-[black]">
         Cómo jugar
       </div>
@@ -52,7 +54,9 @@ export default function TheRules() {
         </p>
       </div>
       <div className="footer flex justify-center">
-        <button className="text-white bg-[#6AAA64] w-[256px] h-[44px] rounded font-extrabold text-[28px]">
+        <button
+        onClick={()=>setTheRules(false)}
+        className="text-white bg-[#6AAA64] w-[256px] h-[44px] rounded font-extrabold text-[28px]">
           !JUGAR¡
         </button>
       </div>

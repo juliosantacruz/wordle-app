@@ -6,14 +6,24 @@ import lightQuestion from "@/assets/icon/light_question-circle-fill.png";
 import darkIcon from "@/assets/icon/dark_Sky Switch - Dark.png";
 import darkChart from "@/assets/icon/dark_Chart_fill.png";
 import darkQuestion from "@/assets/icon/dark_question-circle-fill.png";
+import { useGameStore } from "@/store/gameStore";
 
 
 type Props={
   darkMode:boolean,
-  setDarkMode:(value:boolean)=>void
+  setDarkMode:(value:boolean)=>void,
 }
-export default function Header({darkMode, setDarkMode}:Props) {
-  // const [darkMode, setDarkMode]=useState(true)
+export default function Header({darkMode, setDarkMode }:Props) {
+  const { setTheRules,setStats} = useGameStore()
+
+  const showStats=()=>{
+    setStats(true)
+
+  }
+
+  const showTheRules=()=>{
+    setTheRules(true)
+  }
 
   useEffect(()=>{
     if(darkMode){
@@ -26,7 +36,7 @@ export default function Header({darkMode, setDarkMode}:Props) {
   return (
     <nav className="flex items-center justify-between w-[638px] h-[84px] mb-6 rounded-[15px] bg-[#F3F3F3] dark:bg-gray-800 p-4 ">
       <div>
-        <button>
+        <button onClick={showTheRules}>
           {" "}
           <img
             src={darkMode ? darkQuestion : lightQuestion}
@@ -40,7 +50,7 @@ export default function Header({darkMode, setDarkMode}:Props) {
 
       <div>
         <div className="flex items-center gap-4">
-          <button>
+          <button onClick={showStats}>
             {" "}
             <img
               src={darkMode ? darkChart : lightChart}

@@ -3,8 +3,12 @@ import { create } from "zustand";
 import wordsList from "@/mock/wordsList.json";
 
 type Store = {
-
-
+  isFirstTime:boolean,
+  setIsFirstTime:()=>void,
+  theRules:boolean,
+  setTheRules:(value:boolean)=>any,
+  stats:boolean,
+  setStats:(value:boolean)=>void
   word: string;
   guessArray: string[];
   currenGuess: number;
@@ -20,6 +24,24 @@ type Store = {
 };
 
 export const useGameStore = create<Store>()((set, get) => ({
+  isFirstTime:true,
+  setIsFirstTime:()=>set((state)=>({
+    ...state,
+    isFirstTime:false
+  })),
+  // Ux States
+  theRules:false,
+  setTheRules:(value:boolean)=>set((state)=>({
+    ...state,
+    theRules:value
+  })),
+  stats:false,
+  setStats:(value:boolean)=>set((state)=>({
+    ...state,
+    stats:value
+  })),
+
+  // Game State
   word: "",
   guessArray: ['','','','','',''],
   currenGuess: 0,
