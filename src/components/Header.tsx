@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import lightIcon from "@/assets/icon/light_Sky Switch - Light.png";
 import lightChart from "@/assets/icon/light_Chart_duotone_line.png";
 import lightQuestion from "@/assets/icon/light_question-circle-fill.png";
@@ -7,8 +7,13 @@ import darkIcon from "@/assets/icon/dark_Sky Switch - Dark.png";
 import darkChart from "@/assets/icon/dark_Chart_fill.png";
 import darkQuestion from "@/assets/icon/dark_question-circle-fill.png";
 
-export default function Header() {
-  const [darkMode, setDarkMode]=useState(true)
+
+type Props={
+  darkMode:boolean,
+  setDarkMode:(value:boolean)=>void
+}
+export default function Header({darkMode, setDarkMode}:Props) {
+  // const [darkMode, setDarkMode]=useState(true)
 
   useEffect(()=>{
     if(darkMode){
