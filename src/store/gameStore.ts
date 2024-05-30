@@ -13,7 +13,10 @@ type Store = {
   word: string;
   guessArray: string[];
   currentGuess: number;
-  numberOfGuesses: number;
+  gamesWon:number,
+  gamesPlayed:number,
+  lostGame:boolean,
+  winGame:boolean,
   win: { win: boolean };
   lost: { lost: boolean };
 
@@ -30,7 +33,6 @@ type Store = {
 
   gameInit: () => void;
   submitGuess: () => void;
-  handleKeypad: (value: string) => void;
 
   handleKeyup: (e: KeyboardEvent) => void;
 };
@@ -60,7 +62,10 @@ export const useGameStore = create<Store>()((set, get) => ({
   word: "",
   guessArray: ["", "", "", "", ""],
   currentGuess: 0,
-
+  gamesWon:0,
+  gamesPlayed:0,
+  lostGame:false,
+  winGame:false,
   get numberOfGuesses() {
     return get().guessArray.length;
   },
@@ -69,6 +74,15 @@ export const useGameStore = create<Store>()((set, get) => ({
   win: {
     get win() {
       const isWin = get().guessArray[get().currentGuess - 1] === get().word;
+      if(isWin){
+        set((state)=>({
+          ...state,
+          gamesWon: state.gamesWon + 1,
+          gamesPlayed: state.gamesPlayed + 1,
+          winGame:true,
+          stats:true,
+        }))
+      }
       return isWin;
     },
   },
@@ -76,6 +90,15 @@ export const useGameStore = create<Store>()((set, get) => ({
   lost: {
     get lost() {
       const isLost = get().currentGuess === 5 ? true : false;
+      if(isLost){
+        set((state)=>({
+          ...state,
+          gamesPlayed: state.gamesPlayed + 1,
+          lostGame:true,
+          stats:true,
+
+        }))
+      }
       return isLost;
     },
   },
@@ -121,6 +144,9 @@ export const useGameStore = create<Store>()((set, get) => ({
       word: wordsList[Math.round(Math.random() * wordsList.length)],
       guessArray: ["", "", "", "", ""],
       currentGuess: 0,
+      lostGame:false,
+      winGame:false
+
     })),
   submitGuess: () => {
     console.log(
@@ -142,55 +168,18 @@ export const useGameStore = create<Store>()((set, get) => ({
     }
   },
 
-  handleKeypad:(value:string)=>{
-    if (get().win.win || get().lost.lost) {
-      return;
-    }
-    if (value === "Enter") {
-      console.log("enter");
-      get().submitGuess();
-    }
-    if (value  === "Delete" || value  === "Backspace") {
-      const lastCharIndex = get().guessArray[get().currentGuess].length - 1;
-      const leGuess = get().guessArray[get().currentGuess];
-      const updatedGuess = leGuess.slice(0, lastCharIndex);
-      console.log(lastCharIndex, leGuess, updatedGuess);
-      set((state) => ({
-        ...state,
-        guessArray: state.guessArray.map((guess, index) => {
-          return index === state.currentGuess ? updatedGuess : guess;
-        }),
-      }));
-      return;
-    }
-    if (
-      get().guessArray[get().currentGuess].length < 5 &&
-      value.match(/^[A-z]$/)
-    ) {
-      const stringTest = (get().guessArray[get().currentGuess] +=
-        value.toLowerCase());
 
-      set((state) => ({
-        ...state,
-        guessArray: state.guessArray.map((guess, index) => {
-          return index === state.currentGuess ? stringTest : guess;
-        }),
-      }));
-    }
-  },
   handleKeyup: (e) => {
     if (get().win.win || get().lost.lost) {
       return;
     }
     if (e.key === "Enter") {
-      console.log("enter");
       get().submitGuess();
     }
     if (e.key === "Delete" || e.key === "Backspace") {
       const lastCharIndex = get().guessArray[get().currentGuess].length - 1;
       const leGuess = get().guessArray[get().currentGuess];
       const updatedGuess = leGuess.slice(0, lastCharIndex);
-      console.log(lastCharIndex, leGuess, updatedGuess);
       set((state) => ({
         ...state,
         guessArray: state.guessArray.map((guess, index) => {

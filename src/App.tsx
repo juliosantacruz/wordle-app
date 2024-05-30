@@ -14,7 +14,6 @@ function App() {
 
   const currentWord = useGameStore((state) => state.word);
   const guessesArray = useGameStore((state) => state.guessArray);
-  const numberOfGuesses = useGameStore((state) => state.numberOfGuesses);
 
   const currenGuess = useGameStore((state) => state.currentGuess);
 
@@ -43,7 +42,6 @@ function App() {
             );
           })}
         </div>
-        <p>{numberOfGuesses}</p>
         <p>{currentWord}</p>
         <p>{JSON.stringify(guessesArray)}</p>
         <Keyboard darkMode={darkMode} setDarkMode={setDarkMode} />

@@ -50,9 +50,7 @@ export default function Keyboard({ darkMode }: Props) {
     const event = new KeyboardEvent('keydown', { key });
     window.dispatchEvent(event);
   };
-  console.log('allGuesses',todos)
-  console.log('inex',inexactos)
-  console.log('exact',exactos)
+
   return (
     <div className="flex flex-wrap gap-4 w-[638px] bg-[#dadce04d] dark:bg-[#dadce008] p-5 rounded-lg">
       {keys &&
