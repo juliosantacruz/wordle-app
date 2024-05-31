@@ -5,12 +5,13 @@ import GuessRow from "@/components/GuessRow";
 import { useEffect, useState } from "react";
 import TheRules from "./components/TheRules";
 import Stats from "@/components/Stats";
-import { useGameStore } from "./store/gameStore";
+import { useGameStore, useWordleStore } from "./store/gameStore";
 import AsideModal from "./components/AsideModal";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
   const { theRules, stats, gameInit, handleKeyup } = useGameStore();
+  const {isFirstTime} = useWordleStore()
 
   const currentWord = useGameStore((state) => state.word);
   const guessesArray = useGameStore((state) => state.guessArray);
@@ -47,8 +48,8 @@ function App() {
         <Keyboard darkMode={darkMode} setDarkMode={setDarkMode} />
       </div>
 
-      {theRules ? (
-        <AsideModal children={<TheRules />} openModal={theRules} />
+      {theRules||isFirstTime ? (
+        <AsideModal children={<TheRules />} openModal={theRules||isFirstTime} />
       ) : null}
       {stats ? <AsideModal children={<Stats />} openModal={stats} /> : null}
     </>

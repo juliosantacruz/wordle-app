@@ -1,10 +1,16 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import  string  from "vite-plugin-string";
+import react from "@vitejs/plugin-react";
 import * as path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    string({
+      include: "**/*.txt",
+    }),
+  ],
 
   ...(process.env.NODE_ENV === "development"
     ? {
@@ -15,7 +21,9 @@ export default defineConfig({
     : {}),
   resolve: {
     alias: [
-      { find: "@", replacement: path.resolve(__dirname, "src") ,
+      {
+        find: "@",
+        replacement: path.resolve(__dirname, "src"),
 
         ...(process.env.NODE_ENV !== "development"
           ? {
@@ -25,4 +33,4 @@ export default defineConfig({
       },
     ],
   },
-})
+});
