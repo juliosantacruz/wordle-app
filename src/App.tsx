@@ -43,8 +43,7 @@ function App() {
             );
           })}
         </div>
-        <p>{currentWord}</p>
-        <p>{JSON.stringify(guessesArray)}</p>
+
         <Keyboard darkMode={darkMode} setDarkMode={setDarkMode} />
       </div>
 
